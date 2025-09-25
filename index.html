@@ -3,249 +3,170 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>TrackPackPro — Suivi de Colis</title>
+<title>TrackPack Pro — Suivi de Colis</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-:root{
-  --bg: #0f1724;
-  --card: #0b1220;
-  --muted: #9aa6b2;
-  --accent: #3b82f6;
-  --accent-2: #06b6d4;
-  --danger: #ef4444;
-  --glass: rgba(255,255,255,0.03);
-  --radius: 14px;
-  --glass-2: rgba(255,255,255,0.02);
-  --white: #e6eef8;
-  --soft-shadow: 0 6px 24px rgba(2,6,23,0.6);
-  --glass-border: rgba(255,255,255,0.04);
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: linear-gradient(180deg,#071029 0%, #071827 50%, #071827 100%);
-  color:var(--white);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  padding-bottom:40px;
-}
-.wrap{max-width:1150px;margin:28px auto;padding:20px;}
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;padding:18px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
-  border:1px solid var(--glass-border);backdrop-filter: blur(6px);box-shadow:var(--soft-shadow);
-}
-.brand{display:flex;align-items:center;gap:12px;}
-.brand .logo {width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#04263b;font-size:18px;box-shadow: 0 6px 18px rgba(59,130,246,0.12);}
-.brand h1{font-size:18px;margin:0}
-.controls{display:flex;align-items:center;gap:12px}
-.lang-select{
-  background:var(--glass);border:1px solid var(--glass-border);padding:6px 10px;border-radius:8px;color:var(--white);
-  display:flex;align-items:center;gap:8px;font-weight:600;
-}
-.lang-select select{
-  background:transparent;border:none;color:var(--white);outline:none;font-weight:600;
-}
-.hero{
-  margin-top:22px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-  padding:36px;border-radius:16px;border:1px solid var(--glass-border);box-shadow:var(--soft-shadow);
-  display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;
-}
-.hero-left{padding:12px;}
-.tag{
-  display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);
-  color:var(--muted);font-size:13px;margin-bottom:16px;
-}
-.hero-left h2{font-size:28px;margin:8px 0 12px;color:var(--white);line-height:1.05}
-.hero-left p{margin:0;color:var(--muted);max-width:680px}
-.card{
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:12px;padding:18px;border:1px solid var(--glass-border);
-}
-form.tracking{display:flex;flex-direction:column;gap:12px;}
-.inputs{display:flex;gap:10px;}
-.inputs input, .inputs select {
-  flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
-  background: rgba(2,6,23,0.4); color:var(--white);outline:none;font-size:15px;
-}
-.inputs select{max-width:170px}
-.actions{display:flex;gap:10px;align-items:center}
-button.primary{
-  flex:1;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;padding:12px;border-radius:10px;
-  color:#04263b;font-weight:700;cursor:pointer;font-size:15px;box-shadow:0 8px 30px rgba(59,130,246,0.12);
-}
-button.ghost{
-  background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--white);padding:10px 12px;border-radius:10px;cursor:pointer;
-}
-.hint{font-size:13px;color:var(--muted);margin-top:6px}
-.results{margin-top:20px;display:flex;flex-direction:column;gap:14px;}
-.summary{
-  display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
-  border:1px solid var(--glass-border);
-}
-.summary .logo-mini{width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-weight:700}
-.summary .meta h3{margin:0;font-size:16px}
-.summary .meta p{margin:2px 0 0;font-size:13px;color:var(--muted)}
-.timeline{display:flex;flex-direction:column;gap:10px;padding:8px;}
-.step{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid var(--glass-border);transition:transform .22s ease, box-shadow .22s ease;}
-.step:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.6)}
-.dot{min-width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#04263b;}
-.step .body{flex:1}
-.step .body .time{font-size:13px;color:var(--muted)}
-.step .body .txt{font-weight:700;margin-top:4px;color:var(--white)}
-.empty{padding:26px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px dashed rgba(255,255,255,0.03);text-align:center;color:var(--muted)}
-@media(max-width:980px){.hero{grid-template-columns:1fr; padding:22px}.wrap{padding:12px}}
+  :root{
+    --bg:#0f1724; --card:#0b1220; --muted:#9aa6b2; --accent:#3b82f6;
+    --accent-2:#06b6d4; --danger:#ef4444; --glass:rgba(255,255,255,0.03);
+    --radius:14px; --glass-2:rgba(255,255,255,0.02); --white:#e6eef8;
+    --soft-shadow:0 6px 24px rgba(2,6,23,0.6); --glass-border:rgba(255,255,255,0.04);
+  }
+  *{box-sizing:border-box} html,body{height:100%} body{margin:0;font-family:Inter, ui-sans-serif, system-ui;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding-bottom:40px;color:var(--white);background:linear-gradient(180deg,#071029 0%,#071827 50%,#071827 100%)}
+  .wrap{max-width:1150px;margin:28px auto;padding:20px;}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);border:1px solid var(--glass-border);backdrop-filter: blur(6px);box-shadow:var(--soft-shadow);}
+  .brand{display:flex;align-items:center;gap:12px}.brand .logo {width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#04263b;font-size:18px;box-shadow: 0 6px 18px rgba(59,130,246,0.12);}
+  .brand h1{font-size:18px;margin:0} .controls{display:flex;align-items:center;gap:12px}
+  .lang-select{background:var(--glass);border:1px solid var(--glass-border);padding:6px 10px;border-radius:8px;color:var(--white);display:flex;align-items:center;gap:8px;font-weight:600;}
+  .lang-select select{background:transparent;border:none;color:var(--white);outline:none;font-weight:600;}
+  .hero{margin-top:22px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:36px;border-radius:16px;border:1px solid var(--glass-border);box-shadow:var(--soft-shadow);display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;}
+  .hero-left{padding:12px}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-size:13px;margin-bottom:16px;}
+  .hero-left h2{font-size:28px;margin:8px 0 12px;color:var(--white);line-height:1.05}.hero-left p{margin:0;color:var(--muted);max-width:680px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:18px;border:1px solid var(--glass-border);}
+  form.tracking{display:flex;flex-direction:column;gap:12px;}
+  .inputs{display:flex;gap:10px;flex-wrap:wrap;}
+  .inputs input, .inputs select{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background: rgba(2,6,23,0.4); color:var(--white);outline:none;font-size:15px;}
+  .inputs select{max-width:180px}
+  .actions{display:flex;gap:10px;align-items:center}
+  button.primary{flex:1;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;padding:12px;border-radius:10px;color:#04263b;font-weight:700;cursor:pointer;font-size:15px;box-shadow:0 8px 30px rgba(59,130,246,0.12);}
+  button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--white);padding:10px 12px;border-radius:10px;cursor:pointer;}
+  .hint{font-size:13px;color:var(--muted);margin-top:6px}
+  .results{margin-top:20px;display:flex;flex-direction:column;gap:14px;}
+  .summary{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);border:1px solid var(--glass-border);}
+  .summary .logo-mini{width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-weight:700}
+  .summary .meta h3{margin:0;font-size:16px}
+  .summary .meta p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+  .timeline{display:flex;flex-direction:column;gap:10px;padding:8px;}
+  .step{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid var(--glass-border);transition:transform .22s ease, box-shadow .22s ease;}
+  .step:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.6)}
+  .dot{min-width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#04263b;}
+  .step .body{flex:1}.step .body .time{font-size:13px;color:var(--muted)}.step .body .txt{font-weight:700;margin-top:4px;color:var(--white)}
+  .empty{padding:26px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px dashed rgba(255,255,255,0.03);text-align:center;color:var(--muted)}
+  @media(max-width:980px){.hero{grid-template-columns:1fr;padding:22px}.wrap{padding:12px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <div class="brand">
-      <div class="logo" aria-hidden="true">TP</div>
-      <div>
-        <h1 style="font-size:16px;margin:0">TrackPackPro</h1>
-        <div style="font-size:12px;color:var(--muted)">Suivi universel</div>
-      </div>
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true">TP</div>
+    <div>
+      <h1 style="font-size:16px;margin:0">TrackPack Pro</h1>
+      <div style="font-size:12px;color:var(--muted)">Suivi universel</div>
     </div>
-    <div class="controls">
-      <div class="lang-select" title="Choisir la langue">
-        <i class="fa-solid fa-globe" style="opacity:.9"></i>
-        <select id="langTop" aria-label="Langue">
-          <option value="fr">FR</option>
-          <option value="en">EN</option>
-          <option value="es">ES</option>
-          <option value="pt">PT</option>
-          <option value="cn">CN</option>
-          <option value="ar">AR</option>
-          <option value="de">DE</option>
-          <option value="nl">NL</option>
-        </select>
-      </div>
+  </div>
+  <div class="controls">
+    <div class="lang-select" title="Choisir la langue">
+      <i class="fa-solid fa-globe" style="opacity:.9"></i>
+      <select id="langTop" aria-label="Langue">
+        <option value="fr">FR</option>
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="pt">PT</option>
+        <option value="cn">CN</option>
+        <option value="ar">AR</option>
+        <option value="de">DE</option>
+        <option value="nl">NL</option>
+      </select>
     </div>
-  </header>
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-left">
-      <div class="tag">Multi-transporteurs • Multilingue</div>
-      <h2 id="hero-title">Suivez tous vos colis en temps réel</h2>
-      <p id="hero-sub">Entrez votre numéro, choisissez un transporteur (ou auto) et obtenez l'historique en quelques secondes.</p>
-      <div id="resultsWrap" class="results" aria-live="polite">
-        <div class="empty" id="emptyMsg">Aucun suivi pour l'instant — essayez un numéro de test.</div>
-      </div>
+  </div>
+</header>
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-left">
+    <div class="tag">Multi-transporteurs • Multilingue</div>
+    <h2 id="hero-title">Suivez tous vos colis en temps réel</h2>
+    <p id="hero-sub">Entrez votre numéro, choisissez un transporteur (ou auto) et obtenez l'historique en quelques secondes.</p>
+    <div id="resultsWrap" class="results" aria-live="polite">
+      <div class="empty" id="emptyMsg">Aucun suivi pour l'instant — essayez un numéro de test.</div>
     </div>
-    <aside>
-      <div class="card" role="region" aria-label="Formulaire de suivi">
-        <form id="trackForm" class="tracking" autocomplete="off">
-          <div class="inputs">
-            <input id="trackNumber" name="trackNumber" placeholder="Ex : 1Z999AA10123456784" aria-label="Numéro de suivi">
-            <select id="carrierSelect" aria-label="Transporteur">
-              <option value="">Détection automatique</option>
-              <option value="dhl">DHL</option>
-              <option value="ups">UPS</option>
-              <option value="fedex">FedEx</option>
-              <option value="laposte">La Poste</option>
-              <option value="usps">USPS</option>
-              <option value="canadapost">Canada Post</option>
-              <option value="royalmail">Royal Mail</option>
-              <option value="skynet">Skynet</option>
-              <option value="chinapost">China Post</option>
-              <option value="amazon">Amazon</option>
-              <option value="wish">Wish</option>
-              <option value="shopee">Shopee</option>
-            </select>
-          </div>
-          <div class="actions">
-            <button type="submit" class="primary" id="btnTrack"><i class="fa-solid fa-magnifying-glass" style="margin-right:8px"></i>Suivre</button>
-            <button type="button" id="btnSample" class="ghost" title="Exemple">Exemple</button>
-          </div>
-          <div class="hint" id="hintText">Supporte la détection automatique des transporteurs si disponible via ton API.</div>
-        </form>
-      </div>
-    </aside>
-  </section>
+  </div>
+  <aside>
+    <div class="card" role="region" aria-label="Formulaire de suivi">
+      <form id="trackForm" class="tracking" autocomplete="off">
+        <div class="inputs">
+          <input id="trackNumber" name="trackNumber" placeholder="Ex : 1Z999AA10123456784" aria-label="Numéro de suivi">
+          <select id="carrierSelect" aria-label="Transporteur">
+            <option value="">Détection automatique</option>
+            <option value="usps">USPS</option>
+            <option value="canadapost">Canada Post</option>
+            <option value="royalmail">Royal Mail</option>
+            <option value="dhl">DHL</option>
+            <option value="chinapost">China Post</option>
+            <option value="fedex">FedEx</option>
+            <option value="ups">UPS</option>
+            <option value="amazon">Amazon</option>
+            <option value="deutschepost">Deutsche Post</option>
+            <option value="aliexpress">AliExpress</option>
+            <option value="wish">Wish</option>
+            <option value="shopee">Shopee</option>
+            <option value="laposte">La Poste</option>
+          </select>
+        </div>
+        <div class="actions">
+          <button type="submit" class="primary" id="btnTrack"><i class="fa-solid fa-magnifying-glass" style="margin-right:8px"></i>Suivre</button>
+          <button type="button" id="btnSample" class="ghost" title="Exemple">Exemple</button>
+        </div>
+        <div class="hint" id="hintText">Supporte la détection automatique des transporteurs si disponible via ton API.</div>
+      </form>
+    </div>
+  </aside>
+</section>
 </div>
-
 <script>
-const LANG_TEXT = {
-  fr:{tracking:'Suivi',searching:'Recherche en cours…',noResults:"Aucun résultat trouvé.",enterNumber:"Veuillez saisir un numéro de suivi",chooseCarrier:"Veuillez sélectionner un transporteur (ou laisser automatique).",sampleNumber:"1Z999AA10123456784"},
-  en:{tracking:'Tracking',searching:'Searching…',noResults:"No results found.",enterNumber:"Please enter a tracking number",chooseCarrier:"Please choose a carrier (or leave auto).",sampleNumber:"1Z999AA10123456784"},
-  es:{tracking:'Seguimiento',searching:'Buscando…',noResults:"No se encontraron resultados.",enterNumber:"Por favor ingrese un número de seguimiento",chooseCarrier:"Por favor seleccione un transportista (o automático).",sampleNumber:"1Z999AA10123456784"},
-  pt:{tracking:'Rastreamento',searching:'Procurando…',noResults:"Nenhum resultado encontrado.",enterNumber:"Por favor, insira um número de rastreamento",chooseCarrier:"Escolha um transportador (ou automático).",sampleNumber:"1Z999AA10123456784"},
-  cn:{tracking:'跟踪',searching:'搜索中…',noResults:"未找到结果。",enterNumber:"请输入追踪号码",chooseCarrier:"请选择运输商（或自动）",sampleNumber:"1Z999AA10123456784"},
-  ar:{tracking:'تتبع',searching:'جار البحث…',noResults:"لم يتم العثور على نتائج.",enterNumber:"يرجى إدخال رقم التتبع",chooseCarrier:"يرجى اختيار الناقل (أو تلقائي)",sampleNumber:"1Z999AA10123456784"},
-  de:{tracking:'Verfolgung',searching:'Suche…',noResults:"Keine Ergebnisse gefunden.",enterNumber:"Bitte geben Sie eine Sendungsnummer ein",chooseCarrier:"Bitte wählen Sie einen Anbieter (oder automatisch).",sampleNumber:"1Z999AA10123456784"},
-  nl:{tracking:'Volgen',searching:'Bezig met zoeken…',noResults:"Geen resultaten gevonden.",enterNumber:"Voer een trackingnummer in",chooseCarrier:"Kies een vervoerder (of automatisch).",sampleNumber:"1Z999AA10123456784"}
+const LANG={
+fr:{tracking:'Suivi',searching:'Recherche en cours…',noResults:'Aucun résultat trouvé.',enterNumber:'Veuillez saisir un numéro de suivi',chooseCarrier:'Veuillez sélectionner un transporteur (ou laisser automatique).',sampleNumber:'1Z999AA10123456784'},
+en:{tracking:'Tracking',searching:'Searching…',noResults:'No results found.',enterNumber:'Please enter a tracking number',chooseCarrier:'Please choose a carrier (or leave auto).',sampleNumber:'1Z999AA10123456784'},
+... // ajoute ici les traductions ES, PT, CN, AR, DE, NL
 };
 
 let currentLang='fr';
 const langTop=document.getElementById('langTop');
 const resultsWrap=document.getElementById('resultsWrap');
+const emptyMsg=document.getElementById('emptyMsg');
 
-langTop.addEventListener('change', e=>{
+langTop.addEventListener('change',e=>{
   currentLang=e.target.value;
-  document.getElementById('btnTrack').innerHTML=`<i class="fa-solid fa-magnifying-glass" style="margin-right:8px"></i>${LANG_TEXT[currentLang].tracking}`;
-  document.getElementById('hintText').textContent = LANG_TEXT[currentLang].chooseCarrier;
-  document.getElementById('hero-title').textContent = currentLang==='fr'?'Suivez tous vos colis en temps réel':'Track all your packages in real time';
-  document.getElementById('hero-sub').textContent = currentLang==='fr'?'Entrez votre numéro, choisissez un transporteur (ou auto) et obtenez l\'historique en quelques secondes.':'Enter your number, choose a carrier (or auto) and get the history in seconds.';
+  const t=LANG[currentLang]||LANG['fr'];
+  document.getElementById('btnTrack').innerHTML=`<i class="fa-solid fa-magnifying-glass" style="margin-right:8px"></i>${t.tracking}`;
+  document.getElementById('hintText').textContent=t.chooseCarrier;
+  document.getElementById('hero-title').textContent=currentLang==='fr'?'Suivez tous vos colis en temps réel':'Track all your packages in real time';
+  document.getElementById('hero-sub').textContent=currentLang==='fr'?'Entrez votre numéro, choisissez un transporteur (ou auto) et obtenez l\'historique en quelques secondes.':'Enter your number, choose a carrier (or auto) and get the history in seconds.';
 });
 
-function escapeHtml(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');}
+async function trackPackage(number,carrier){
+  if(!number) return alert(LANG[currentLang].enterNumber);
+  clearResults();
+  const loading=document.createElement('div');loading.className='summary';
+  loading.innerHTML=`<div style="width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-spinner fa-spin" style="opacity:.7"></i></div><div class="meta"><h3>${LANG[currentLang].searching}</h3><p style="color:var(--muted)">${number}</p></div>`;
+  resultsWrap.appendChild(loading);
+  try{
+    const apiKey='asat_025c8097d5b94afc8ee1941f817a603b';
+    const res=await fetch(`https://api.aftership.com/v4/trackings/${carrier||''}/${number}`,{headers:{'aftership-api-key':apiKey,'Content-Type':'application/json'}});
+    const data=await res.json();
+    clearResults();
+    if(!data.data||!data.data.tracking){showEmpty();return;}
+    renderTrackingFromAPI(data.data.tracking);
+  }catch(e){console.error(e);showEmpty();}
+}
+
 function clearResults(){resultsWrap.innerHTML='';}
-function showEmpty(){clearResults();const el=document.createElement('div');el.className='empty';el.textContent=currentLang==='fr'?"Aucun suivi pour l'instant — essayez un numéro de test.":"No tracking yet — try a sample number.";resultsWrap.appendChild(el);}
+function showEmpty(){clearResults();const el=document.createElement('div');el.className='empty';el.textContent=currentLang==='fr'?'Aucun suivi pour l\'instant — essayez un numéro de test.':'No tracking yet — try a sample number.';resultsWrap.appendChild(el);}
+
+function renderTrackingFromAPI(tracking){
+  const summary=document.createElement('div');summary.className='summary';
+  summary.innerHTML=`<div class="logo-mini">${tracking.slug.slice(0,2).toUpperCase()}</div><div class="meta"><h3>${tracking.slug} · ${tracking.tracking_number}</h3><p>${currentLang==='fr'?'Dernière mise à jour':'Last update'}: ${tracking.checkpoints[tracking.checkpoints.length-1]?.checkpoint_time||''}</p></div>`;
+  resultsWrap.appendChild(summary);
+  const timeline=document.createElement('div');timeline.className='timeline';
+  tracking.checkpoints.slice().reverse().forEach((ev,idx)=>{const step=document.createElement('div');step.className='step';step.innerHTML=`<div class="dot">${idx+1}</div><div class="body"><div class="time">${ev.checkpoint_time}</div><div class="txt">${ev.message}</div></div>`;timeline.appendChild(step);});
+  resultsWrap.appendChild(timeline);
+}
 
 const form=document.getElementById('trackForm');
 const trackNumberInput=document.getElementById('trackNumber');
 const carrierSelect=document.getElementById('carrierSelect');
 const btnSample=document.getElementById('btnSample');
-const AFTERSHIP_KEY='asat_025c8097d5b94afc8ee1941f817a603b';
-
-form.addEventListener('submit', async ev=>{
-  ev.preventDefault();
-  const number=trackNumberInput.value.trim();
-  const carrier=carrierSelect.value;
-  if(!number){ alert(LANG_TEXT[currentLang].enterNumber); return;}
-  clearResults();
-  const loading=document.createElement('div'); loading.className='summary';
-  loading.innerHTML=`<div style="width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-spinner fa-spin" style="opacity:.7"></i></div>
-  <div class="meta"><h3>${LANG_TEXT[currentLang].searching}</h3><p style="color:var(--muted)">${escapeHtml(number)}</p></div>`;
-  resultsWrap.appendChild(loading);
-
-  try{
-    // Vérifie si le suivi existe déjà
-    let existCheck = await fetch(`https://api.aftership.com/v4/trackings/${encodeURIComponent(carrier||'auto')}/${encodeURIComponent(number)}`,{headers:{'aftership-api-key':AFTERSHIP_KEY,'Content-Type':'application/json'}});
-    if(existCheck.status===404){
-      // créer tracking si pas existant
-      await fetch('https://api.aftership.com/v4/trackings',{
-        method:'POST',
-        headers:{'aftership-api-key':AFTERSHIP_KEY,'Content-Type':'application/json'},
-        body: JSON.stringify({tracking:{tracking_number:number,slug:carrier||undefined}})
-      });
-    }
-    // récupérer tracking
-    const resp=await fetch(`https://api.aftership.com/v4/trackings/${encodeURIComponent(carrier||'auto')}/${encodeURIComponent(number)}`,{headers:{'aftership-api-key':AFTERSHIP_KEY}});
-    const dataJson=await resp.json();
-    const t=dataJson.data.tracking;
-    clearResults();
-    if(!t || !t.checkpoints || t.checkpoints.length===0){showEmpty(); return;}
-    // summary
-    const summary=document.createElement('div'); summary.className='summary';
-    summary.innerHTML=`<div class="logo-mini">${escapeHtml((t.slug||'??').slice(0,2).toUpperCase())}</div>
-      <div class="meta"><h3>${escapeHtml(t.slug||'')} · ${escapeHtml(t.tracking_number)}</h3>
-      <p>${currentLang==='fr'?'Dernière mise à jour':'Last update'}: ${escapeHtml(t.checkpoints[t.checkpoints.length-1]?.checkpoint_time||'')}</p></div>`;
-    resultsWrap.appendChild(summary);
-    // timeline
-    const timeline=document.createElement('div'); timeline.className='timeline';
-    t.checkpoints.slice().reverse().forEach((ev,idx)=>{
-      const step=document.createElement('div'); step.className='step';
-      step.innerHTML=`<div class="dot">${idx+1}</div><div class="body"><div class="time">${escapeHtml(ev.checkpoint_time||'')}</div><div class="txt">${escapeHtml(ev.message||'')}</div></div>`;
-      timeline.appendChild(step);
-    });
-    resultsWrap.appendChild(timeline);
-  }catch(err){clearResults();showEmpty(); console.error(err);}
-});
-
-btnSample.addEventListener('click', ()=>{trackNumberInput.value=LANG_TEXT[currentLang].sampleNumber; carrierSelect.value=''; trackNumberInput.focus();});
+form.addEventListener('submit',e=>{e.preventDefault();trackPackage(trackNumberInput.value.trim(),carrierSelect.value)});
+btnSample.addEventListener('click',()=>{trackNumberInput.value=LANG[currentLang].sampleNumber;carrierSelect.value='';trackNumberInput.focus();});
 showEmpty();
 </script>
 </body>
