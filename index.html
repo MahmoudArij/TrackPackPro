@@ -1,153 +1,563 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TrackPackPro — Suivi de Colis</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TrackPackPro — Suivi de Colis (Ultime)</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 :root{
-  --bg:#0f1724; --card:#0b1220; --muted:#9aa6b2; --accent:#3b82f6;
-  --accent-2:#06b6d4; --danger:#ef4444; --glass:rgba(255,255,255,0.03);
-  --radius:14px; --glass-2:rgba(255,255,255,0.02); --white:#e6eef8;
-  --soft-shadow:0 6px 24px rgba(2,6,23,0.6); --glass-border:rgba(255,255,255,0.04);
+  --bg:#071027; --card:#0b1220; --muted:#9aa6b2; --accent:#3b82f6; --accent-2:#06b6d4;
+  --success:#22c55e; --danger:#ef4444; --white:#e6eef8; --glass: rgba(255,255,255,0.03);
+  --glass-border: rgba(255,255,255,0.04); --radius:14px;
 }
-*{box-sizing:border-box} html,body{height:100%}
-body{margin:0;font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:linear-gradient(180deg,#071029 0%,#071827 50%,#071827 100%);color:var(--white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding-bottom:40px;}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,#071029 0%, #071827 100%);color:var(--white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .wrap{max-width:1150px;margin:28px auto;padding:20px;}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);border:1px solid var(--glass-border);backdrop-filter: blur(6px);box-shadow:var(--soft-shadow);}
-.brand{display:flex;align-items:center;gap:12px;}
-.brand .logo {width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#04263b;font-size:18px;box-shadow:0 6px 18px rgba(59,130,246,0.12);}
-.brand h1{font-size:18px;margin:0}
+/* Header */
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);border:1px solid var(--glass-border);backdrop-filter: blur(6px);box-shadow:0 8px 30px rgba(2,6,23,0.6);}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#04263b;font-size:18px;box-shadow:0 8px 30px rgba(59,130,246,0.12)}
+.brand h1{margin:0;font-size:18px}
+.brand small{color:var(--muted);font-size:12px}
 .controls{display:flex;align-items:center;gap:12px}
-.lang-select{background:var(--glass);border:1px solid var(--glass-border);padding:6px 10px;border-radius:8px;color:var(--white);display:flex;align-items:center;gap:8px;font-weight:600;}
-.lang-select select{background:transparent;border:none;color:var(--white);outline:none;font-weight:600;}
-.hero{margin-top:22px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:36px;border-radius:16px;border:1px solid var(--glass-border);box-shadow:var(--soft-shadow);display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;}
-.hero-left{padding:12px;}
-.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-size:13px;margin-bottom:16px;}
-.hero-left h2{font-size:28px;margin:8px 0 12px;color:var(--white);line-height:1.05}
-.hero-left p{margin:0;color:var(--muted);max-width:680px}
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:18px;border:1px solid var(--glass-border);}
-form.tracking{display:flex;flex-direction:column;gap:12px;}
-.inputs{display:flex;gap:10px;}
-.inputs input, .inputs select {flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background: rgba(2,6,23,0.4); color:var(--white);outline:none;font-size:15px;}
-.inputs select{max-width:170px}
+/* Language selector */
+.lang-select{background:var(--glass);border:1px solid var(--glass-border);padding:6px 10px;border-radius:10px;color:var(--white);display:flex;align-items:center;gap:8px;font-weight:700}
+.lang-select select{background:transparent;border:none;color:var(--white);outline:none;font-weight:700}
+/* Hero / form */
+.hero{margin-top:22px;padding:28px;border-radius:16px;border:1px solid var(--glass-border);box-shadow:0 10px 40px rgba(2,6,23,0.6);display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:start;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent)}
+.hero-left .tag{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);font-size:13px;margin-bottom:12px}
+.hero-left h2{font-size:26px;margin:8px 0;color:var(--white);line-height:1.05}
+.hero-left p{margin:0;color:var(--muted);max-width:720px}
+/* card */
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:18px;border:1px solid var(--glass-border)}
+form.tracking{display:flex;flex-direction:column;gap:12px}
+.inputs{display:flex;gap:10px;flex-wrap:wrap}
+.inputs input, .inputs select{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background: rgba(2,6,23,0.45); color:var(--white);outline:none;font-size:15px}
+.inputs select{max-width:220px}
 .actions{display:flex;gap:10px;align-items:center}
-button.primary{flex:1;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;padding:12px;border-radius:10px;color:#04263b;font-weight:700;cursor:pointer;font-size:15px;box-shadow:0 8px 30px rgba(59,130,246,0.12);}
-button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--white);padding:10px 12px;border-radius:10px;cursor:pointer;}
+button.primary{flex:1;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;padding:12px;border-radius:10px;color:#04263b;font-weight:800;cursor:pointer;font-size:15px;box-shadow:0 12px 36px rgba(59,130,246,0.12)}
+button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--white);padding:10px 12px;border-radius:10px;cursor:pointer}
 .hint{font-size:13px;color:var(--muted);margin-top:6px}
-.results{margin-top:20px;display:flex;flex-direction:column;gap:14px;}
-.summary{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);border:1px solid var(--glass-border);}
-.summary .logo-mini{width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-weight:700}
-.summary .meta h3{margin:0;font-size:16px}
-.summary .meta p{margin:2px 0 0;font-size:13px;color:var(--muted)}
-.timeline{display:flex;flex-direction:column;gap:10px;padding:8px;}
-.step{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid var(--glass-border);transition:transform .22s ease, box-shadow .22s ease;}
+/* results */
+.results{margin-top:18px;display:flex;flex-direction:column;gap:14px}
+.summary{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);border:1px solid var(--glass-border)}
+.logo-mini{width:52px;height:52px;border-radius:10px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-weight:800}
+.meta h3{margin:0;font-size:16px}
+.meta p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.timeline{display:flex;flex-direction:column;gap:10px;padding:8px;max-height:420px;overflow:auto}
+.step{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid var(--glass-border);transition:transform .18s ease,box-shadow .18s ease}
 .step:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.6)}
-.dot{min-width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#04263b;}
-.step .body{flex:1}
+.dot{min-width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#04263b}
 .step .body .time{font-size:13px;color:var(--muted)}
 .step .body .txt{font-weight:700;margin-top:4px;color:var(--white)}
-.empty{padding:26px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px dashed rgba(255,255,255,0.03);text-align:center;color:var(--muted)}
-@media(max-width:980px){.hero{grid-template-columns:1fr;padding:22px}.wrap{padding:12px}}
-@media(max-width:600px){header{flex-direction:column;align-items:flex-start;gap:12px;padding:12px}.controls{width:100%;justify-content:flex-end}.hero{grid-template-columns:1fr;padding:16px}.hero-left{margin-bottom:16px}.inputs{flex-direction:column;gap:8px}.inputs input, .inputs select{width:100%}.actions{flex-direction:column}button.primary, button.ghost{width:100%}.results .timeline{overflow-x:auto}}
+.empty{padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px dashed rgba(255,255,255,0.03);text-align:center;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin-top:8px}
+.footer-note{font-size:12px;color:var(--muted);margin-top:10px}
+/* RTL support */
+.rtl{direction:rtl}
+.rtl .inputs{flex-direction:row-reverse}
+.rtl .step{flex-direction:row-reverse}
+/* responsive */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr; padding:20px}
+  .wrap{padding:12px}
+}
+@media (max-width:600px){
+  header{flex-direction:column;align-items:flex-start;gap:12px;padding:12px}
+  .controls{width:100%;justify-content:flex-end}
+  .inputs{flex-direction:column}
+  .inputs input, .inputs select{width:100%}
+  .actions{flex-direction:column}
+  button.primary,button.ghost{width:100%}
+  .timeline{max-height:320px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
-<div class="brand">
-<div class="logo" aria-hidden="true">TP</div>
-<div>
-<h1 style="font-size:16px;margin:0">TrackPackPro</h1>
-<div style="font-size:12px;color:var(--muted)">Suivi universel</div>
+<div class="wrap" id="pageWrap">
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">TP</div>
+      <div>
+        <h1>TrackPackPro</h1>
+        <small>Suivi universel</small>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="lang-select" title="Choisir la langue" id="langBox">
+        <i class="fa-solid fa-globe"></i>
+        <select id="langTop" aria-label="Langue">
+          <option value="fr">FR</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+          <option value="pt">PT</option>
+          <option value="cn">中文</option>
+          <option value="ar">AR</option>
+          <option value="de">DE</option>
+          <option value="nl">NL</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-left">
+      <div class="tag">Multi-transporteurs • Multilingue</div>
+      <h2 id="hero-title">Suivez tous vos colis en temps réel</h2>
+      <p id="hero-sub">Entrez votre numéro, choisissez un transporteur (ou auto) et obtenez l'historique en quelques secondes.</p>
+
+      <div id="resultsWrap" class="results" aria-live="polite">
+        <div class="empty" id="emptyMsg">Aucun suivi pour l'instant — essayez un numéro de test.</div>
+      </div>
+      <div class="note" id="corsNote">Remarque : si vous hébergez sur GitHub Pages, vous pourriez rencontrer des erreurs CORS. Utilisez un proxy si besoin.</div>
+    </div>
+
+    <aside>
+      <div class="card" role="region" aria-label="Formulaire de suivi">
+        <form id="trackForm" class="tracking" autocomplete="off">
+          <div class="inputs">
+            <input id="trackNumber" name="trackNumber" placeholder="Ex : 1Z999AA10123456784" aria-label="Numéro de suivi">
+            <select id="carrierSelect" aria-label="Transporteur">
+              <option value="">Détection automatique</option>
+              <option value="usps">USPS</option>
+              <option value="canadapost">Canada Post</option>
+              <option value="royalmail">Royal Mail</option>
+              <option value="dhl">DHL</option>
+              <option value="chinapost">China Post</option>
+              <option value="fedex">FedEx</option>
+              <option value="ups">UPS</option>
+              <option value="amazon">Amazon</option>
+              <option value="deutschepost">Deutsche Post</option>
+              <option value="aliexpress">AliExpress</option>
+              <option value="wish">Wish</option>
+              <option value="shopee">Shopee</option>
+              <option value="laposte">La Poste</option>
+            </select>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="primary" id="btnTrack"><i class="fa-solid fa-magnifying-glass" style="margin-right:8px"></i>Suivre</button>
+            <button type="button" id="btnSample" class="ghost" title="Exemple">Exemple</button>
+          </div>
+          <div class="hint" id="hintText">Supporte la détection automatique des transporteurs si disponible via ton API.</div>
+        </form>
+      </div>
+    </aside>
+  </section>
 </div>
-</div>
-<div class="controls">
-<div class="lang-select" title="Choisir la langue">
-<i class="fa-solid fa-globe" style="opacity:.9"></i>
-<select id="langTop" aria-label="Langue">
-<option value="fr">FR</option>
-<option value="en">EN</option>
-<option value="es">ES</option>
-<option value="pt">PT</option>
-<option value="cn">CN</option>
-<option value="ar">AR</option>
-<option value="de">DE</option>
-<option value="nl">NL</option>
-</select>
-</div>
-</div>
-</header>
-<section class="hero" aria-labelledby="hero-title">
-<div class="hero-left">
-<div class="tag">Multi-transporteurs • Multilingue</div>
-<h2 id="hero-title">Suivez tous vos colis en temps réel</h2>
-<p id="hero-sub">Entrez votre numéro, choisissez un transporteur (ou auto) et obtenez l'historique en quelques secondes.</p>
-<div id="resultsWrap" class="results" aria-live="polite">
-<div class="empty" id="emptyMsg">Aucun suivi pour l'instant — essayez un numéro de test.</div>
-</div>
-</div>
-<aside>
-<div class="card" role="region" aria-label="Formulaire de suivi">
-<form id="trackForm" class="tracking" autocomplete="off">
-<div class="inputs">
-<input id="trackNumber" name="trackNumber" placeholder="Ex : 1Z999AA10123456784" aria-label="Numéro de suivi">
-<select id="carrierSelect" aria-label="Transporteur">
-<option value="">Détection automatique</option>
-<option value="dhl">DHL</option>
-<option value="ups">UPS</option>
-<option value="fedex">FedEx</option>
-<option value="laposte">La Poste</option>
-<option value="usps">USPS</option>
-<option value="canadapost">Canada Post</option>
-<option value="royalmail">Royal Mail</option>
-<option value="chinapost">China Post</option>
-<option value="amazon">Amazon</option>
-<option value="deutschepost">Deutsche Post</option>
-<option value="aliexpress">AliExpress</option>
-<option value="wish">Wish</option>
-<option value="shopee">Shopee</option>
-</select>
-</div>
-<div class="actions">
-<button type="submit" class="primary" id="btnTrack"><i class="fa-solid fa-magnifying-glass" style="margin-right:8px"></i>Suivre</button>
-<button type="button" id="btnSample" class="ghost" title="Exemple">Exemple</button>
-</div>
-<div class="hint" id="hintText">Supporte la détection automatique des transporteurs si disponible via ton API.</div>
-</form>
-</div>
-</aside>
-</section>
-</div>
+
 <script>
-const LANG={fr:{tracking:'Suivi',searching:'Recherche en cours…',noResults:'Aucun résultat trouvé.',enterNumber:'Veuillez saisir un numéro de suivi',chooseCarrier:'Veuillez sélectionner un transporteur (ou laisser automatique).',sampleNumber:'1Z999AA10123456784'},en:{tracking:'Tracking',searching:'Searching…',noResults:'No results found.',enterNumber:'Please enter a tracking number',chooseCarrier:'Please choose a carrier (or leave auto).',sampleNumber:'1Z999AA10123456784'},es:{tracking:'Seguimiento',searching:'Buscando…',noResults:'No se encontraron resultados.',enterNumber:'Ingrese un número de seguimiento',chooseCarrier:'Seleccione un transportista (o automático).',sampleNumber:'1Z999AA10123456784'},pt:{tracking:'Rastreamento',searching:'Pesquisando…',noResults:'Nenhum resultado encontrado.',enterNumber:'Digite um número de rastreio',chooseCarrier:'Escolha um transportador (ou automático).',sampleNumber:'1Z999AA10123456784'},cn:{tracking:'跟踪',searching:'搜索中…',noResults:'未找到结果。',enterNumber:'请输入追踪号码',chooseCarrier:'请选择承运商（或自动）。',sampleNumber:'1Z999AA10123456784'},ar:{tracking:'تتبع',searching:'جارٍ البحث…',noResults:'لم يتم العثور على نتائج.',enterNumber:'الرجاء إدخال رقم التتبع',chooseCarrier:'اختر الناقل (أو تلقائي).',sampleNumber:'1Z999AA10123456784'},de:{tracking:'Verfolgung',searching:'Suche…',noResults:'Keine Ergebnisse gefunden.',enterNumber:'Bitte geben Sie eine Sendungsnummer ein',chooseCarrier:'Bitte wählen Sie einen Anbieter (oder automatisch).',sampleNumber:'1Z999AA10123456784'},nl:{tracking:'Volgen',searching:'Zoeken…',noResults:'Geen resultaten gevonden.',enterNumber:'Voer een trackingnummer in',chooseCarrier:'Kies een vervoerder (of automatisch).',sampleNumber:'1Z999AA10123456784'}};
-let currentLang='fr';
-const langTop=document.getElementById('langTop');
-const resultsWrap=document.getElementById('resultsWrap');
-const emptyMsg=document.getElementById('emptyMsg');
-langTop.addEventListener('change',e=>{currentLang=e.target.value;document.getElementById('btnTrack').innerHTML=`<i class="fa-solid fa-magnifying-glass" style="margin-right:8px"></i>${LANG[currentLang].tracking}`;document.getElementById('hintText').textContent=currentLang==='fr'?'Supporte la détection automatique des transporteurs si disponible via ton API.':'Supports automatic carrier detection if available via your API.';document.getElementById('hero-title').textContent=currentLang==='fr'?'Suivez tous vos colis en temps réel':'Track all your packages in real time';document.getElementById('hero-sub').textContent=currentLang==='fr'?'Entrez votre numéro, choisissez un transporteur (ou auto) et obtenez l\'historique en quelques secondes.':'Enter your number, choose a carrier (or auto) and get the history in seconds.';});
-function clearResults(){resultsWrap.innerHTML='';}
-function showEmpty(){clearResults();const el=document.createElement('div');el.className='empty';el.textContent=currentLang==='fr'?'Aucun suivi pour l\'instant — essayez un numéro de test.':'No tracking yet — try a sample number.';resultsWrap.appendChild(el);}
-function escapeHtml(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');}
-const form=document.getElementById('trackForm');
-const trackNumberInput=document.getElementById('trackNumber');
-const carrierSelect=document.getElementById('carrierSelect');
-const btnSample=document.getElementById('btnSample');
-form.addEventListener('submit',async ev=>{
-ev.preventDefault();
-const number=trackNumberInput.value.trim();
-const carrier=carrierSelect.value;
-if(!number){alert(LANG[currentLang].enterNumber);return;}
-clearResults();
-const loading=document.createElement('div');loading.className='summary';loading.innerHTML=`<div style="width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-spinner fa-spin" style="opacity:.7"></i></div><div class="meta"><h3>${LANG[currentLang].searching}</h3><p style="color:var(--muted)">${escapeHtml(number)}</p></div>`;resultsWrap.appendChild(loading);
-try{
-  const apiUrl=`https://api.aftership.com/v4/trackings/${encodeURIComponent(number)}`;
-  const response=await fetch(apiUrl,{headers:{'aftership-api-key':'asat_025c8097d5b94afc8ee1941f817a603b','Content-Type':'application/json'}});
-  const result=await response.json();
+/* =========================
+   CONFIG
+   - AFTERSHIP_KEY: ta clé AfterShip (déjà fournie)
+   - PROXY_URL: optionnel, mettre l'URL de ton proxy si CORS bloqué (ex: https://mon-proxy.example.com/api/track)
+   ========================= */
+const AFTERSHIP_KEY = 'asat_025c8097d5b94afc8ee1941f817a603b'; // ta clé
+const PROXY_URL = null; // ex: 'https://mon-proxy.example.com/aftership' (laisser null pour appeler AfterShip direct)
+
+/* =========================
+   Traductions (FR,EN,ES,PT,CN,AR,DE,NL)
+   Ajouter/modifier textes ici
+   ========================= */
+const TRANSLATIONS = {
+  fr: {
+    heroTitle: "Suivez tous vos colis en temps réel",
+    heroSub: "Entrez votre numéro, choisissez un transporteur (ou auto) et obtenez l'historique en quelques secondes.",
+    follow: "Suivre",
+    sample: "Exemple",
+    searching: "Recherche en cours…",
+    noResults: "Aucun suivi pour l'instant — essayez un numéro de test.",
+    enterNumber: "Veuillez saisir un numéro de suivi",
+    lastUpdate: "Dernière mise à jour",
+    hint: "Supporte la détection automatique des transporteurs si disponible via ton API.",
+    corsWarning: "Remarque : GitHub Pages peut bloquer AfterShip à cause des CORS. Utilisez un proxy si besoin."
+  },
+  en: {
+    heroTitle: "Track all your packages in real time",
+    heroSub: "Enter your number, choose a carrier (or auto) and get the history in seconds.",
+    follow: "Track",
+    sample: "Sample",
+    searching: "Searching…",
+    noResults: "No tracking yet — try a sample number.",
+    enterNumber: "Please enter a tracking number",
+    lastUpdate: "Last update",
+    hint: "Supports automatic carrier detection if available via your API.",
+    corsWarning: "Note: GitHub Pages may block direct AfterShip calls due to CORS. Use a proxy if needed."
+  },
+  es: {
+    heroTitle: "Sigue todos tus paquetes en tiempo real",
+    heroSub: "Introduce tu número, elige un transportista (o automático) y obtén el historial en segundos.",
+    follow: "Rastrear",
+    sample: "Ejemplo",
+    searching: "Buscando…",
+    noResults: "Sin seguimiento aún — prueba un número de muestra.",
+    enterNumber: "Introduce un número de seguimiento",
+    lastUpdate: "Última actualización",
+    hint: "Soporta detección automática de transportistas si tu API lo permite.",
+    corsWarning: "Nota: GitHub Pages puede bloquear AfterShip por CORS. Usa un proxy si es necesario."
+  },
+  pt: {
+    heroTitle: "Acompanhe todas as suas encomendas em tempo real",
+    heroSub: "Insira o número, escolha um transportador (ou automático) e obtenha o histórico em segundos.",
+    follow: "Rastrear",
+    sample: "Exemplo",
+    searching: "Pesquisando…",
+    noResults: "Nenhum resultado encontrado.",
+    enterNumber: "Insira um número de rastreio",
+    lastUpdate: "Última atualização",
+    hint: "Suporta detecção automática de transportadoras se disponível via sua API.",
+    corsWarning: "Observação: GitHub Pages pode bloquear AfterShip por CORS. Use proxy."
+  },
+  cn: {
+    heroTitle: "实时跟踪您的包裹",
+    heroSub: "输入单号，选择承运商（或自动），即可在几秒钟内查看历史记录。",
+    follow: "追踪",
+    sample: "示例",
+    searching: "正在查询…",
+    noResults: "暂无追踪 — 请尝试示例编号。",
+    enterNumber: "请输入运单号",
+    lastUpdate: "最后更新",
+    hint: "如果 API 支持，则支持承运商自动识别。",
+    corsWarning: "注意：GitHub Pages 可能因 CORS 阻止 AfterShip 请求。请使用代理。"
+  },
+  ar: {
+    heroTitle: "تتبع جميع طرودك في الوقت الحقيقي",
+    heroSub: "أدخل رقم التتبع، اختر الناقل (أو تلقائيًا) واحصل على السجل خلال ثوانٍ.",
+    follow: "تتبع",
+    sample: "مثال",
+    searching: "جارٍ البحث…",
+    noResults: "لا يوجد تتبع حتى الآن — جرب رقمًا تجريبيًا.",
+    enterNumber: "الرجاء إدخال رقم التتبع",
+    lastUpdate: "آخر تحديث",
+    hint: "يدعم اكتشاف الناقل تلقائيًا إذا كانت API الخاصة بك تدعم ذلك.",
+    corsWarning: "ملاحظة: قد يمنع GitHub Pages طلبات AfterShip بسبب CORS. استخدم بروكسي إذا لزم الأمر."
+  },
+  de: {
+    heroTitle: "Verfolge alle Ihre Pakete in Echtzeit",
+    heroSub: "Gib deine Nummer ein, wähle einen Carrier (oder automatisch) und erhalte die Historie in Sekunden.",
+    follow: "Verfolgen",
+    sample: "Beispiel",
+    searching: "Suche…",
+    noResults: "Keine Ergebnisse gefunden.",
+    enterNumber: "Bitte Tracking-Nummer eingeben",
+    lastUpdate: "Letzte Aktualisierung",
+    hint: "Unterstützt automatische Carrier-Erkennung, falls über Ihre API verfügbar.",
+    corsWarning: "Hinweis: GitHub Pages kann AfterShip-Aufrufe wegen CORS blockieren. Proxy verwenden."
+  },
+  nl: {
+    heroTitle: "Volg al uw pakketten in realtime",
+    heroSub: "Voer uw nummer in, kies een vervoerder (of automatisch) en ontvang de geschiedenis in seconden.",
+    follow: "Volgen",
+    sample: "Voorbeeld",
+    searching: "Zoeken…",
+    noResults: "Geen resultaten gevonden.",
+    enterNumber: "Voer een traceernummer in",
+    lastUpdate: "Laatste update",
+    hint: "Ondersteunt automatische vervoerderdetectie als uw API dit ondersteunt.",
+    corsWarning: "Opmerking: GitHub Pages kan AfterShip-aanroepen blokkeren vanwege CORS. Gebruik proxy."
+  }
+};
+
+/* ============= Helpers ============= */
+function el(id){return document.getElementById(id)}
+function escapeHtml(s){ return String(s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+/* ============= UI init ============= */
+let currentLang = 'fr';
+const langTop = el('langTop');
+const resultsWrap = el('resultsWrap');
+const hintText = el('hintText');
+const corsNote = el('corsNote');
+const btnTrack = el('btnTrack');
+const btnSample = el('btnSample');
+
+function applyLang(lang){
+  currentLang = lang;
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.fr;
+  el('hero-title').textContent = t.heroTitle;
+  el('hero-sub').textContent = t.heroSub;
+  btnTrack.innerHTML = `<i class="fa-solid fa-magnifying-glass" style="margin-right:8px"></i>${t.follow}`;
+  btnSample.textContent = t.sample;
+  hintText.textContent = t.hint;
+  corsNote.textContent = t.corsWarning;
+  // RTL handling for Arabic
+  if(lang === 'ar'){
+    document.documentElement.classList.add('rtl');
+    document.body.classList.add('rtl');
+  } else {
+    document.documentElement.classList.remove('rtl');
+    document.body.classList.remove('rtl');
+  }
+}
+langTop.addEventListener('change', (e)=> { applyLang(e.target.value); });
+applyLang(currentLang);
+
+/* ============= Carrier detection (simple patterns) =============
+   This is a small, best-effort local detection. Keep adding patterns if you want.
+*/
+const CARRIER_PATTERNS = [
+  {slug:'ups', name:'UPS', pattern: /^1Z[0-9A-Z]{16}$/i},
+  {slug:'dhl', name:'DHL', pattern: /^\d{10, DHL?}/i},
+  {slug:'fedex', name:'FedEx', pattern: /^[0-9]{12,}$/},
+  {slug:'usps', name:'USPS', pattern: /^[A-Z0-9]{20,22}$/i},
+  {slug:'royalmail', name:'Royal Mail', pattern: /^[A-Z]{2}\d{9}GB$/i},
+  {slug:'canadapost', name:'Canada Post', pattern: /^[A-Z]{2}\d{9}CA$/i},
+  {slug:'chinapost', name:'China Post', pattern: /^[A-Z]{2}\d{9}CN$/i}
+];
+
+function detectCarrierLocal(number){
+  if(!number) return '';
+  const n = number.replace(/\s+/g,'');
+  for(const p of CARRIER_PATTERNS){
+    try{ if(p.pattern.test(n)) return p.slug }catch(e){}
+  }
+  return '';
+}
+
+/* ============= AfterShip interaction helpers =========
+   Strategy:
+    1) Try GET /v4/trackings/{slug}/{tracking_number} if carrier provided
+    2) If GET 404 or not found -> POST to create tracking (POST /v4/trackings)
+    3) If POST returns 201 (created) or 409 (already exists) -> GET details
+    4) If no checkpoints yet -> poll detail GET (few attempts) with small delay
+*/
+async function apiFetch(url, options){
+  // If you want to use a proxy (to avoid CORS), set PROXY_URL to proxy endpoint and it should forward to AfterShip.
+  if(PROXY_URL){
+    // If proxy expects same shape, POST body: { url: 'https://api.aftership.com/..', method, headers, body }
+    const proxyBody = { target: url, method: options && options.method ? options.method : 'GET', headers: options.headers || {}, body: options.body || null };
+    const resp = await fetch(PROXY_URL, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(proxyBody) });
+    return resp;
+  } else {
+    return fetch(url, options);
+  }
+}
+
+async function aftershipGetDetail(slugOrNumber, numberIfSlugProvided){
+  // two possibilities:
+  // - if slug provided: /v4/trackings/{slug}/{number}
+  // - if only number: /v4/trackings/{number}
+  let url;
+  if(numberIfSlugProvided){
+    url = `https://api.aftership.com/v4/trackings/${encodeURIComponent(slugOrNumber)}/${encodeURIComponent(numberIfSlugProvided)}`;
+  } else {
+    url = `https://api.aftership.com/v4/trackings/${encodeURIComponent(slugOrNumber)}`;
+  }
+  const resp = await apiFetch(url, { headers: { 'aftership-api-key': AFTERSHIP_KEY } });
+  return resp;
+}
+
+async function aftershipCreate(number, slug){
+  const url = 'https://api.aftership.com/v4/trackings';
+  const body = { tracking: { tracking_number: number } };
+  if(slug) body.tracking.slug = slug;
+  const resp = await apiFetch(url, { method:'POST', headers: { 'Content-Type':'application/json', 'aftership-api-key': AFTERSHIP_KEY }, body: JSON.stringify(body) });
+  return resp;
+}
+
+/* Poll helper */
+function delay(ms){ return new Promise(res=>setTimeout(res, ms)); }
+
+/* Normalize AfterShip tracking object to common format used by UI */
+function normalizeTrackingObj(tracking){
+  const checkpoints = Array.isArray(tracking.checkpoints) ? tracking.checkpoints : [];
+  const events = checkpoints.map(cp => ({
+    time: cp.checkpoint_time || cp.updated_at || '',
+    status: cp.message || cp.tag || cp.status || ''
+  }));
+  return {
+    carrierName: tracking.slug || tracking.title || 'Unknown',
+    trackingNumber: tracking.tracking_number || '',
+    events
+  };
+}
+
+/* Main function: create-or-get-with-polling */
+async function fetchTrackingRobust(number, carrier){
+  // 1) If carrier empty, try local detection
+  let slug = carrier || detectCarrierLocal(number) || '';
+  try {
+    // 2) Try GET (best first)
+    let getResp;
+    if(slug){
+      getResp = await aftershipGetDetail(slug, number);
+    } else {
+      // try GET by number
+      getResp = await aftershipGetDetail(number);
+    }
+    if(getResp && getResp.ok){
+      const j = await getResp.json();
+      if(j && j.data && j.data.tracking) return normalizeTrackingObj(j.data.tracking);
+    } else {
+      // If GET returned 404, proceed to create
+      if(getResp && getResp.status !== 404){
+        // if other status (401/403/429 etc) throw to be handled by caller
+        // continue to try create below for 404 or 404-like
+      }
+    }
+
+    // 3) Create (POST)
+    const postResp = await aftershipCreate(number, slug || undefined);
+    // AfterShip: POST may return 201 (created) or 409 (already exists) or 400 (invalid)
+    if(postResp){
+      // if POST success or conflict, fetch detail
+      // if POST returned 201 or 409 or 200 - we still GET details
+      // but check status
+      // ignore body for now, move to GET detail
+    }
+
+    // 4) Attempt GET details; poll if no checkpoints
+    const maxAttempts = 6;
+    const pollDelay = 2000; // ms
+    for(let attempt=0; attempt<maxAttempts; attempt++){
+      let detailResp;
+      if(slug){
+        detailResp = await aftershipGetDetail(slug, number);
+      } else {
+        detailResp = await aftershipGetDetail(number);
+      }
+
+      if(detailResp && detailResp.ok){
+        const jd = await detailResp.json();
+        const tracking = jd.data && jd.data.tracking ? jd.data.tracking : null;
+        if(tracking){
+          const normalized = normalizeTrackingObj(tracking);
+          if(normalized.events && normalized.events.length>0){
+            return normalized;
+          } else {
+            // no events yet: wait and retry
+            await delay(pollDelay);
+            continue;
+          }
+        } else {
+          await delay(pollDelay);
+          continue;
+        }
+      } else {
+        // If 404 and attempt 0, wait then retry, else continue
+        await delay(pollDelay);
+        continue;
+      }
+    }
+    // After polling, attempt a final GET and return whatever data (even empty)
+    try {
+      const finalResp = slug ? await aftershipGetDetail(slug, number) : await aftershipGetDetail(number);
+      if(finalResp && finalResp.ok){
+        const jf = await finalResp.json();
+        if(jf && jf.data && jf.data.tracking) return normalizeTrackingObj(jf.data.tracking);
+      }
+    } catch(e){}
+    // nothing useful
+    return null;
+  } catch(e){
+    // bubble up
+    throw e;
+  }
+}
+
+/* ============= UI render ============= */
+function clearResults(){ resultsWrap.innerHTML = ''; }
+function showEmpty(){ clearResults(); const el = document.createElement('div'); el.className='empty'; el.textContent = TRANSLATIONS[currentLang].noResults; resultsWrap.appendChild(el); }
+function renderTracking(data){
   clearResults();
-  if(!result || !result.data || !result.data.tracking){showEmpty();return;}
-  const data={carrierName:result.data.tracking.slug,trackingNumber:result.data.tracking.tracking_number,events:result.data.tracking.checkpoints.map(cp=>({time:cp.checkpoint_time||cp.updated_at,status:cp.message||cp.tag}))};
-  renderTracking(data);
-}catch(err){clearResults();const errEl=document.createElement('div');errEl.className='empty';errEl.textContent=currentLang==='fr'?'Erreur lors de la requête. Réessayer plus tard.':'Request error. Try again later.';resultsWrap.appendChild(errEl);console.error(err);}});
-function renderTracking(data){clearResults();const summary=document.createElement('div');summary.className='summary';summary.innerHTML=`<div class="logo-mini">${escapeHtml(data.carrierName.slice(0,2).toUpperCase())}</div><div class="meta"><h3>${escapeHtml(data.carrierName)} · ${escapeHtml(data.trackingNumber)}</h3><p>${currentLang==='fr'?'Dernière mise à jour':'Last update'}: ${escapeHtml(data.events[0]?.time||'')}</p></div>`;resultsWrap.appendChild(summary);const timeline=document.createElement('div');timeline.className='timeline';data.events.slice().reverse().forEach((ev,idx)=>{const step=document.createElement('div');step.className='step';step.innerHTML=`<div class="dot">${idx+1}</div><div class="body"><div class="time">${escapeHtml(ev.time)}</
+  const s = document.createElement('div'); s.className='summary';
+  s.innerHTML = `<div class="logo-mini">${escapeHtml((data.carrierName||'--').slice(0,2).toUpperCase())}</div>
+    <div class="meta"><h3>${escapeHtml(data.carrierName)} · ${escapeHtml(data.trackingNumber)}</h3>
+    <p>${escapeHtml(TRANSLATIONS[currentLang].lastUpdate)}: ${escapeHtml(data.events[0]?.time || '')}</p></div>`;
+  resultsWrap.appendChild(s);
+
+  const timeline = document.createElement('div'); timeline.className='timeline';
+  const evs = Array.isArray(data.events) ? data.events.slice().reverse() : [];
+  evs.forEach((ev, idx)=>{
+    const step = document.createElement('div'); step.className='step';
+    step.innerHTML = `<div class="dot">${idx+1}</div>
+      <div class="body"><div class="time">${escapeHtml(ev.time)}</div><div class="txt">${escapeHtml(ev.status)}</div></div>`;
+    timeline.appendChild(step);
+  });
+  if(evs.length===0){
+    const msg = document.createElement('div'); msg.className='empty'; msg.textContent = TRANSLATIONS[currentLang].noResults; timeline.appendChild(msg);
+  }
+  resultsWrap.appendChild(timeline);
+}
+
+/* ============= Form logic ============= */
+const form = el('trackForm');
+const trackNumberInput = el('trackNumber');
+const carrierSelect = el('carrierSelect');
+
+form.addEventListener('submit', async (ev)=>{
+  ev.preventDefault();
+  const number = trackNumberInput.value.trim();
+  const carrier = carrierSelect.value;
+  if(!number){ alert(TRANSLATIONS[currentLang].enterNumber); return; }
+
+  clearResults();
+  const loading = document.createElement('div'); loading.className='summary';
+  loading.innerHTML = `<div style="width:52px;height:52px;border-radius:10px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-spinner fa-spin" style="opacity:.8"></i></div>
+    <div class="meta"><h3>${escapeHtml(TRANSLATIONS[currentLang].searching)}</h3><p style="color:var(--muted)">${escapeHtml(number)}</p></div>`;
+  resultsWrap.appendChild(loading);
+
+  try {
+    const data = await fetchTrackingRobust(number, carrier || '');
+    if(!data){
+      showEmpty();
+      return;
+    }
+    renderTracking(data);
+  } catch(err){
+    clearResults();
+    const errEl = document.createElement('div'); errEl.className='empty';
+    // Friendly message for CORS/network vs other errors
+    const ms = (err && err.message) ? err.message : String(err || 'Error');
+    if(ms.toLowerCase().includes('failed to fetch') || ms.toLowerCase().includes('cors')){
+      errEl.innerHTML = `<strong>${escapeHtml(TRANSLATIONS[currentLang].noResults)}</strong><br>${escapeHtml(TRANSLATIONS[currentLang].corsWarning)}<br><small style="color:var(--muted)">${escapeHtml(ms)}</small>`;
+    } else {
+      errEl.textContent = ms;
+    }
+    resultsWrap.appendChild(errEl);
+    console.error(err);
+  }
+});
+
+btnSample.addEventListener('click', ()=>{
+  trackNumberInput.value = TRANSLATIONS[currentLang].sampleNumber || '1Z999AA10123456784';
+  carrierSelect.value = '';
+  trackNumberInput.focus();
+});
+
+/* ============= Init ============= */
+showEmpty();
+
+/* ============= Proxy snippet (Node/Express) — utiliser si CORS bloque ============
+Save this as server.js and deploy on a small host (Heroku, Vercel serverless, Cloud Run etc.)
+Make sure to set process.env.AFTERSHIP_KEY on server.
+
+const express = require('express');
+const fetch = require('node-fetch');
+const app = express();
+app.use(express.json());
+
+app.post('/aftership-proxy', async (req, res) => {
+  try {
+    // req.body should contain { target, method, headers, body } (see client usage)
+    const { target, method='GET', headers = {}, body = null } = req.body;
+    // Always add your server-side AfterShip key (secure)
+    headers['aftership-api-key'] = process.env.AFTERSHIP_KEY; // set in env
+    const fetchRes = await fetch(target, { method, headers, body: body ? JSON.stringify(body) : undefined });
+    const txt = await fetchRes.text();
+    // forward status and body
+    res.status(fetchRes.status).send(txt);
+  } catch(err) {
+    console.error(err);
+    res.status(500).json({ error: 'proxy error', message: err.message });
+  }
+});
+
+app.listen(process.env.PORT || 3000, ()=>console.log('proxy running'));
+================================================================================= */
+
+</script>
+</body>
+</html>
